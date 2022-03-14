@@ -19,6 +19,7 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         Scene scene = new Scene(loadFXML("primary"), 600, 400);
         stage.setTitle("ROS Timetable Editor");
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
     }
