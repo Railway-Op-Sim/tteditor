@@ -5,6 +5,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import net.danielgill.ros.timetable.Timetable;
+import net.danielgill.ros.timetable.service.Service;
+import net.danielgill.ros.timetable.time.Time;
 
 import java.io.IOException;
 
@@ -14,9 +17,12 @@ import java.io.IOException;
 public class App extends Application {
 
     private static Scene scene;
+    public static Timetable ttb;
+    public static Service editing;
 
     @Override
     public void start(Stage stage) throws IOException {
+        ttb = new Timetable(new Time("01:00"));
         Scene scene = new Scene(loadFXML("primary"), 600, 400);
         stage.setTitle("ROS Timetable Editor");
         stage.setResizable(false);

@@ -28,7 +28,7 @@
          <children>
             <VBox>
                <children>
-                  <TableView fx:id="serviceView" onMouseClicked="#openService" onSort="#updateServices">
+                  <TableView fx:id="serviceView" onMouseClicked="#openService">
                     <columns>
                       <TableColumn fx:id="refColumn" editable="false" prefWidth="50.0" resizable="false" text="Ref" />
                       <TableColumn fx:id="descColumn" editable="false" prefWidth="150.0" resizable="false" text="Description" />
@@ -42,7 +42,7 @@
                   <HBox prefHeight="24.0" prefWidth="316.0" spacing="10.0">
                      <children>
                         <Button mnemonicParsing="false" text="Open" />
-                        <Button mnemonicParsing="false" text="Validate" />
+                        <Button mnemonicParsing="false" onAction="#validateTimetable" text="Validate" />
                         <Button mnemonicParsing="false" text="Save" />
                      </children>
                      <padding>
@@ -77,6 +77,11 @@
                </padding></VBox>
          </children>
       </HBox>
-      <Button mnemonicParsing="false" text="Create New Service" />
+      <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#createService" text="Create New Service" />
+            <Button mnemonicParsing="false" onAction="#deleteService" text="Delete Selected" />
+         </children>
+      </HBox>
    </children>
 </VBox>
