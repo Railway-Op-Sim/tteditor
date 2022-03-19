@@ -19,10 +19,11 @@ public class App extends Application {
     private static Scene scene;
     public static Timetable ttb;
     public static Service editing;
+    public static PrimaryController pc;
 
     @Override
     public void start(Stage stage) throws IOException {
-        ttb = new Timetable(new Time("01:00"));
+        ttb = new Timetable(new Time("00:00"));
         Scene scene = new Scene(loadFXML("primary"), 600, 400);
         stage.setTitle("ROS Timetable Editor");
         stage.setResizable(false);

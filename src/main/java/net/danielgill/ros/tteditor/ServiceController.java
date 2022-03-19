@@ -22,7 +22,11 @@ public class ServiceController implements Initializable {
     
     @FXML
     private void saveClick() {
-        
+        App.editing.setRef(serviceRef.getText());
+        App.editing.setDescription(serviceDesc.getText());
+        App.pc.updateServices();
+        Stage stage = (Stage) cancelButton.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
