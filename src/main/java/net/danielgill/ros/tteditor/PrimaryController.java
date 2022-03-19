@@ -33,6 +33,7 @@ public class PrimaryController implements Initializable {
         if(s == null) {
 
         } else {
+            App.editing = s;
             Scene scene = new Scene(loadFXML("service"));
             Stage stage = new Stage();
             stage.setTitle("Editing Service");
