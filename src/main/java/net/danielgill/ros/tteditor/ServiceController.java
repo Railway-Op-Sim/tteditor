@@ -18,6 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import net.danielgill.ros.timetable.event.Event;
+import net.danielgill.ros.timetable.service.Repeat;
 
 public class ServiceController implements Initializable {
     @FXML private TextField serviceRef;
@@ -38,6 +39,22 @@ public class ServiceController implements Initializable {
         serviceDesc.setText(App.editing.getDescription());
         eventsColumn.setCellValueFactory(new PropertyValueFactory<Event, String>("contextualDescription"));
         eventsView.getItems().setAll(parseEventList());
+
+        Repeat r = App.editing.getRepeat();
+        if(r.getNumberOfRepeats() == 0) {
+            interval.setDisable(true);
+            increment.setDisable(true);
+            repeats.setDisable(true);
+            repeatCheckBox.setSelected(false);
+        } else {
+            repeatCheckBox.setSelected(true);
+            interval.setDisable(false);
+            increment.setDisable(false);
+            repeats.setDisable(false);
+            interval.setText(String.valueOf(r.getInterval()));
+            increment.setText(String.valueOf(r.getIncrement()));
+            repeats.setText(String.valueOf(r.getNumberOfRepeats()));
+        }
     }
     
     private List<Event> parseEventList() {
@@ -48,6 +65,15 @@ public class ServiceController implements Initializable {
     private void saveClick() {
         App.editing.setRef(serviceRef.getText());
         App.editing.setDescription(serviceDesc.getText());
+        if(repeatCheckBox.isSelected()) {
+            int intervalInt = Integer.parseInt(interval.getText());
+            int incrementInt = Integer.parseInt(increment.getText());
+            int repeatsInt = Integer.parseInt(repeats.getText());
+            App.editing.setRepeat(intervalInt, incrementInt, repeatsInt);
+        } else {
+            App.editing.setRepeat(new Repeat(0, 0, 0));
+        }
+
         App.pc.updateServices();
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
