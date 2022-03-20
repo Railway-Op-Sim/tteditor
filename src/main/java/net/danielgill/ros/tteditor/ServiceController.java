@@ -55,6 +55,12 @@ public class ServiceController implements Initializable {
             increment.setText(String.valueOf(r.getIncrement()));
             repeats.setText(String.valueOf(r.getNumberOfRepeats()));
         }
+
+        App.sc = this;
+    }
+
+    public void updateEventList() {
+        eventsView.getItems().setAll(parseEventList());
     }
     
     private List<Event> parseEventList() {

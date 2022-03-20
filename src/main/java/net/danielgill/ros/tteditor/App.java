@@ -20,6 +20,7 @@ public class App extends Application {
     public static Timetable ttb;
     public static Service editing;
     public static PrimaryController pc;
+    public static ServiceController sc;
 
     @Override
     public void start(Stage stage) throws IOException {
