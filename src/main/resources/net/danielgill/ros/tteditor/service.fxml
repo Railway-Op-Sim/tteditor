@@ -2,26 +2,32 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <VBox maxHeight="400.0" maxWidth="625.0" minHeight="400.0" minWidth="625.0" prefHeight="400.0" prefWidth="625.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.danielgill.ros.tteditor.ServiceController">
    <children>
-      <Label prefHeight="21.0" prefWidth="132.0" text="Edit Service">
-         <padding>
-            <Insets bottom="5.0" left="10.0" right="5.0" top="10.0" />
-         </padding>
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <HBox prefHeight="94.0" prefWidth="625.0">
+      <HBox prefHeight="408.0" prefWidth="625.0">
          <children>
             <VBox prefHeight="94.0" prefWidth="276.0">
                <children>
+                  <Label prefHeight="21.0" prefWidth="132.0" text="Edit Service">
+                     <padding>
+                        <Insets bottom="5.0" left="10.0" right="5.0" top="10.0" />
+                     </padding>
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
                   <HBox fillHeight="false" prefHeight="24.0" prefWidth="276.0" spacing="10.0">
                      <children>
                         <Label text="Reference" textAlignment="RIGHT">
@@ -29,25 +35,95 @@
                               <Insets top="5.0" />
                            </padding>
                         </Label>
-                        <TextField fx:id="serviceRef" />
+                        <TextField fx:id="serviceRef" prefHeight="25.0" prefWidth="190.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
                      </padding>
                   </HBox>
-                  <HBox prefHeight="49.0" prefWidth="246.0" spacing="10.0">
+                  <HBox fillHeight="false" prefHeight="23.0" prefWidth="276.0" spacing="10.0">
                      <children>
                         <Label prefHeight="22.0" prefWidth="64.0" text="Description">
                            <padding>
                               <Insets top="5.0" />
                            </padding>
                         </Label>
-                        <TextField fx:id="serviceDesc" />
+                        <TextField fx:id="serviceDesc" prefHeight="25.0" prefWidth="180.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
                      </padding>
                   </HBox>
+                  <Pane prefHeight="132.0" prefWidth="256.0">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                     <children>
+                        <VBox prefHeight="132.0" prefWidth="256.0">
+                           <children>
+                              <CheckBox fx:id="repeatCheckBox" mnemonicParsing="false" onAction="#repeatEnable" text="Repeating Service">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </CheckBox>
+                              <HBox prefHeight="29.0" prefWidth="256.0" spacing="5.0">
+                                 <children>
+                                    <Label text="Interval">
+                                       <padding>
+                                          <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
+                                       </padding>
+                                    </Label>
+                                    <TextField fx:id="interval" disable="true">
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                    </TextField>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                                 <children>
+                                    <Label text="Increment">
+                                       <padding>
+                                          <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
+                                       </padding>
+                                    </Label>
+                                    <TextField fx:id="increment" disable="true">
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                    </TextField>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                                 <children>
+                                    <Label text="No. of Repeats">
+                                       <padding>
+                                          <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
+                                       </padding>
+                                    </Label>
+                                    <TextField fx:id="repeats" disable="true" prefHeight="27.0" prefWidth="134.0">
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                    </TextField>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </Pane>
                   <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
                      <children>
                         <Button mnemonicParsing="false" onAction="#saveClick" text="Save" />
@@ -62,7 +138,41 @@
                   </HBox>
                </children>
             </VBox>
+            <VBox prefHeight="330.0" prefWidth="329.0">
+               <children>
+                  <TableView fx:id="eventsView" prefHeight="339.0" prefWidth="329.0">
+                    <columns>
+                      <TableColumn fx:id="eventsColumn" editable="false" prefWidth="340.0" resizable="false" sortable="false" text="Events" />
+                    </columns>
+                  </TableView>
+                  <HBox prefHeight="45.0" prefWidth="329.0" spacing="10.0">
+                     <children>
+                        <Button mnemonicParsing="false" text="Add Event" />
+                        <Button mnemonicParsing="false" text="Delete Selected" />
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </HBox>
+                  <HBox prefHeight="60.0" prefWidth="329.0" spacing="10.0">
+                     <children>
+                        <RadioButton mnemonicParsing="false" selected="true" text="Description">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="eventType" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton disable="true" mnemonicParsing="false" text="ROS Syntax" toggleGroup="$eventType" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </VBox>
          </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
       </HBox>
    </children>
 </VBox>
