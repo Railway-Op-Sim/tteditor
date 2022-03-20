@@ -26,9 +26,9 @@
       </Label>
       <HBox prefHeight="352.0" prefWidth="624.0">
          <children>
-            <VBox>
+            <VBox prefHeight="265.0" prefWidth="311.0">
                <children>
-                  <TableView fx:id="serviceView" onMouseClicked="#openService">
+                  <TableView fx:id="serviceView" prefHeight="265.0" prefWidth="268.0">
                     <columns>
                       <TableColumn fx:id="refColumn" editable="false" prefWidth="50.0" resizable="false" text="Ref" />
                       <TableColumn fx:id="descColumn" editable="false" prefWidth="150.0" resizable="false" text="Description" />
@@ -36,7 +36,7 @@
                   </TableView>
                </children>
             </VBox>
-            <VBox prefHeight="293.0" prefWidth="356.0" spacing="10.0">
+            <VBox prefHeight="265.0" prefWidth="300.0" spacing="10.0">
                <children>
                   <Label text="Timetable Controls" />
                   <HBox prefHeight="24.0" prefWidth="316.0" spacing="10.0">
@@ -80,6 +80,7 @@
       <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
          <children>
             <Button mnemonicParsing="false" onAction="#createService" text="Create New Service" />
+            <Button mnemonicParsing="false" onAction="#openService" text="Edit Selected" />
             <Button mnemonicParsing="false" onAction="#deleteService" text="Delete Selected" />
          </children>
       </HBox>

@@ -1,11 +1,15 @@
 package net.danielgill.ros.tteditor;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
@@ -66,5 +70,20 @@ public class ServiceController implements Initializable {
             increment.setDisable(true);
             repeats.setDisable(true);
         }
+    }
+
+    @FXML
+    private void addEvent() throws IOException {
+        Scene scene = new Scene(loadFXML("event"));
+        Stage stage = new Stage();
+        stage.setTitle("Add Event");
+        stage.setResizable(false);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    private static Parent loadFXML(String fxml) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+        return fxmlLoader.load();
     }
 }

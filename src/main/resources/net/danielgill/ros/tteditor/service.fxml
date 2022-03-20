@@ -147,7 +147,7 @@
                   </TableView>
                   <HBox prefHeight="45.0" prefWidth="329.0" spacing="10.0">
                      <children>
-                        <Button mnemonicParsing="false" text="Add Event" />
+                        <Button mnemonicParsing="false" onAction="#addEvent" text="Add Event" />
                         <Button mnemonicParsing="false" text="Delete Selected" />
                      </children>
                      <padding>
