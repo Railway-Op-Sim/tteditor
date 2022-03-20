@@ -12,11 +12,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import net.danielgill.ros.timetable.data.Data;
+import net.danielgill.ros.timetable.data.DataTemplates;
 import net.danielgill.ros.timetable.event.Event;
 import net.danielgill.ros.timetable.service.Repeat;
 
@@ -32,6 +35,9 @@ public class ServiceController implements Initializable {
     @FXML private TextField interval;
     @FXML private TextField increment;
     @FXML private TextField repeats;
+
+    @FXML private ChoiceBox<String> dataBox;
+    @FXML private TextField dataField;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -56,6 +62,12 @@ public class ServiceController implements Initializable {
             repeats.setText(String.valueOf(r.getNumberOfRepeats()));
         }
 
+        DataTemplates d = new DataTemplates();
+
+        dataBox.getItems().add("CUSTOM DATA");
+
+        dataBox.setValue("CUSTOM DATA");
+
         App.sc = this;
     }
 
@@ -78,6 +90,14 @@ public class ServiceController implements Initializable {
             App.editing.setRepeat(intervalInt, incrementInt, repeatsInt);
         } else {
             App.editing.setRepeat(new Repeat(0, 0, 0));
+        }
+
+        if(dataBox.getValue().equalsIgnoreCase("CUSTOM DATA")) {
+            if(dataField.getText() == null || dataField.getText().isEmpty()) {
+
+            } else {
+                App.editing.setData(getDataFromString(dataField.getText()));
+            }
         }
 
         App.pc.updateServices();
@@ -117,5 +137,35 @@ public class ServiceController implements Initializable {
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
+    }
+
+    private Data getDataFromString(String dataString) {
+        String[] dataParts = dataString.split(";");
+        return new Data(Integer.parseInt(dataParts[0]), Integer.parseInt(dataParts[1]), Integer.parseInt(dataParts[2]), Integer.parseInt(dataParts[3]), Integer.parseInt(dataParts[4]));
+    }
+
+    @FXML
+    private void deleteEvent() {
+        Event e = eventsView.getSelectionModel().getSelectedItem();
+        App.editing.getEvents().remove(e);
+        updateEventList();
+    }
+
+    @FXML
+    private void moveUp() {
+        Event e = eventsView.getSelectionModel().getSelectedItem();
+        int index = App.editing.getEvents().indexOf(e);
+        App.editing.getEvents().remove(e);
+        App.editing.getEvents().add(index - 1 <= 0 ? 0 : index - 1, e);
+        updateEventList();
+    }
+
+    @FXML
+    private void moveDown() {
+        Event e = eventsView.getSelectionModel().getSelectedItem();
+        int index = App.editing.getEvents().indexOf(e);
+        App.editing.getEvents().remove(e);
+        App.editing.getEvents().add(index + 1 > App.editing.getEvents().size() ? index : index + 1, e);
+        updateEventList();
     }
 }
