@@ -13,17 +13,17 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>17</version>
+            <version>16</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>17</version>
+            <version>16</version>
         </dependency>
         <dependency>
             <groupId>net.danielgill.ros</groupId>
             <artifactId>timetable-lib</artifactId>
-            <version>1.2.0</version>
+            <version>1.2.2</version>
         </dependency>
     </dependencies>
     <build>

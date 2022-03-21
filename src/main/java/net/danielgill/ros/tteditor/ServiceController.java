@@ -19,6 +19,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import net.danielgill.ros.timetable.data.Data;
+import net.danielgill.ros.timetable.data.DataTemplate;
 import net.danielgill.ros.timetable.data.DataTemplates;
 import net.danielgill.ros.timetable.event.Event;
 import net.danielgill.ros.timetable.service.Repeat;
@@ -37,6 +38,7 @@ public class ServiceController implements Initializable {
     @FXML private TextField repeats;
 
     @FXML private ChoiceBox<String> dataBox;
+    @FXML private TextField startSpeed;
     @FXML private TextField dataField;
 
     @Override
@@ -62,11 +64,20 @@ public class ServiceController implements Initializable {
             repeats.setText(String.valueOf(r.getNumberOfRepeats()));
         }
 
-        DataTemplates d = new DataTemplates();
+        DataTemplates dtmps = new DataTemplates();
+        List<DataTemplate> dts = dtmps.getDataTemplates();
 
         dataBox.getItems().add("CUSTOM DATA");
 
+        for(DataTemplate dt : dts) {
+            dataBox.getItems().add(dt.getLabel());
+        }
+
         dataBox.setValue("CUSTOM DATA");
+
+        if(App.editing.getData() != null) {
+            dataField.setText(App.editing.getData().toString());
+        }
 
         App.sc = this;
     }
@@ -97,6 +108,15 @@ public class ServiceController implements Initializable {
 
             } else {
                 App.editing.setData(getDataFromString(dataField.getText()));
+            }
+        } else {
+            DataTemplates dtmps = new DataTemplates();
+            List<DataTemplate> dts = dtmps.getDataTemplates();
+            for(DataTemplate dt : dts) {
+                if(dataBox.getValue().equalsIgnoreCase(dt.getLabel())) {
+                    Data d = new Data(Integer.parseInt(startSpeed.getText()), dt.getData());
+                    App.editing.setData(d);
+                }
             }
         }
 

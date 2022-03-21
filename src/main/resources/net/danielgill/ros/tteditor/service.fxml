@@ -36,7 +36,7 @@
                               <Insets top="5.0" />
                            </padding>
                         </Label>
-                        <TextField fx:id="serviceRef" prefHeight="25.0" prefWidth="190.0" />
+                        <TextField fx:id="serviceRef" prefHeight="25.0" prefWidth="190.0" promptText="1A01" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
@@ -49,7 +49,7 @@
                               <Insets top="5.0" />
                            </padding>
                         </Label>
-                        <TextField fx:id="serviceDesc" prefHeight="25.0" prefWidth="180.0" />
+                        <TextField fx:id="serviceDesc" prefHeight="25.0" prefWidth="180.0" promptText="Station A to Station B" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
@@ -136,11 +136,16 @@
                                           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <ChoiceBox fx:id="dataBox" prefHeight="25.0" prefWidth="166.0">
+                                    <ChoiceBox fx:id="dataBox" prefHeight="25.0" prefWidth="77.0">
                                        <HBox.margin>
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </HBox.margin>
                                     </ChoiceBox>
+                                    <TextField fx:id="startSpeed" prefHeight="25.0" prefWidth="77.0" promptText="Start Speed">
+                                       <HBox.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </HBox.margin>
+                                    </TextField>
                                  </children>
                               </HBox>
                               <HBox prefHeight="37.0" prefWidth="276.0">
@@ -150,7 +155,7 @@
                                           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <TextField fx:id="dataField" prefHeight="25.0" prefWidth="155.0">
+                                    <TextField fx:id="dataField" prefHeight="25.0" prefWidth="155.0" promptText="50;64;13;7;64">
                                        <HBox.margin>
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </HBox.margin>
@@ -177,7 +182,7 @@
             </VBox>
             <VBox prefHeight="330.0" prefWidth="329.0">
                <children>
-                  <TableView fx:id="eventsView" prefHeight="339.0" prefWidth="329.0">
+                  <TableView fx:id="eventsView" prefHeight="307.0" prefWidth="375.0">
                     <columns>
                       <TableColumn fx:id="eventsColumn" editable="false" prefWidth="340.0" resizable="false" sortable="false" text="Events" />
                     </columns>
