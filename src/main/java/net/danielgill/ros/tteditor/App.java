@@ -10,6 +10,7 @@ import net.danielgill.ros.timetable.service.Service;
 import net.danielgill.ros.timetable.time.Time;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * JavaFX App
@@ -21,6 +22,7 @@ public class App extends Application {
     public static Service editing;
     public static PrimaryController pc;
     public static ServiceController sc;
+    public static List<String> stations = null;
 
     @Override
     public void start(Stage stage) throws IOException {

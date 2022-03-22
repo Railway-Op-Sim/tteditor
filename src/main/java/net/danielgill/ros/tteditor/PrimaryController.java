@@ -57,6 +57,16 @@ public class PrimaryController implements Initializable {
     }
 
     @FXML
+    private void openGraph() throws IOException {
+        Scene scene = new Scene(loadFXML("station_order"));
+        Stage stage = new Stage();
+        stage.setTitle("Graphical Timetable");
+        stage.setResizable(false);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
     private void createService() {
         App.ttb.addService(new Service(new Reference("0000"), "EMPTY"));
         updateServices();
