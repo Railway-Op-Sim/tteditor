@@ -51,6 +51,9 @@ public class TimetableGraph {
         stationAxis.setCategories(c);
         stationAxis.setAutoRanging(true);
 
+        lc.setLegendVisible(false);
+        lc.setCreateSymbols(false);
+
         return lc;
     }
 
