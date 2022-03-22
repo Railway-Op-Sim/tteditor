@@ -57,6 +57,16 @@ public class PrimaryController implements Initializable {
     }
 
     @FXML
+    private void openGraph() {
+        Scene scene = new Scene(TimetableGraph.getChart(App.ttb), 625, 400);
+        Stage stage = new Stage();
+        stage.setTitle("Graphical Timetable");
+        stage.setResizable(true);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
     private void createService() {
         App.ttb.addService(new Service(new Reference("0000"), "EMPTY"));
         updateServices();
