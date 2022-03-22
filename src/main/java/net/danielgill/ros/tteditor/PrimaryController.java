@@ -57,11 +57,11 @@ public class PrimaryController implements Initializable {
     }
 
     @FXML
-    private void openGraph() {
-        Scene scene = new Scene(TimetableGraph.getChart(App.ttb), 625, 400);
+    private void openGraph() throws IOException {
+        Scene scene = new Scene(loadFXML("station_order"));
         Stage stage = new Stage();
         stage.setTitle("Graphical Timetable");
-        stage.setResizable(true);
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
     }
