@@ -20,7 +20,6 @@ public class StationOrderController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if(App.stations == null) {
-            System.out.println("TEST");
             rebuildStations();
             writeStations();
         } else if(!checkSame()) {
@@ -71,6 +70,9 @@ public class StationOrderController implements Initializable {
 
     private boolean checkSame() {
         List<String> serStations = getStations();
+        if(serStations.size() != App.stations.size()) {
+            return false;
+        }
         for(String stationA : App.stations) {
             for(String stationB : serStations) {
                 if(!serStations.contains(stationA)) {

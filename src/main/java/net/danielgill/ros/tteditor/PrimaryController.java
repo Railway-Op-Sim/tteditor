@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
 import java.util.Optional;
@@ -121,9 +122,12 @@ public class PrimaryController implements Initializable {
     }
 
     @FXML
-    private void openTTB() {
+    private void openTTB() throws URISyntaxException {
         FileChooser fc = new FileChooser();
         fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Timetable Files (.ttb)", "*.ttb"));
+        URL url = getClass().getProtectionDomain().getCodeSource().getLocation();
+        File jarFile = new File(url.toURI());
+        fc.setInitialDirectory(new File(jarFile.getParentFile().getAbsolutePath()));
         Stage stage = (Stage) serviceView.getScene().getWindow();
         File ttbFile = fc.showOpenDialog(stage);
         try {
