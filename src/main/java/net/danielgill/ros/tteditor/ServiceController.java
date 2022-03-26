@@ -20,7 +20,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import net.danielgill.ros.timetable.data.Data;
 import net.danielgill.ros.timetable.data.DataTemplate;
-import net.danielgill.ros.timetable.data.DataTemplates;
 import net.danielgill.ros.timetable.event.Event;
 import net.danielgill.ros.timetable.service.Repeat;
 
@@ -64,12 +63,9 @@ public class ServiceController implements Initializable {
             repeats.setText(String.valueOf(r.getNumberOfRepeats()));
         }
 
-        DataTemplates dtmps = new DataTemplates();
-        List<DataTemplate> dts = dtmps.getDataTemplates();
-
         dataBox.getItems().add("CUSTOM DATA");
 
-        for(DataTemplate dt : dts) {
+        for(DataTemplate dt : App.templates) {
             dataBox.getItems().add(dt.getLabel());
         }
 
@@ -80,6 +76,21 @@ public class ServiceController implements Initializable {
         }
 
         App.sc = this;
+    }
+
+    @FXML
+    private void openDataTemplate() throws IOException {
+        if(dataField.getText().equals("")) {
+            App.currentData = null;
+        } else {
+            App.currentData = this.getDataFromString(dataField.getText());
+        }
+        Stage stage = new Stage();
+        Scene scene = new Scene(loadFXML("data_template"));
+        stage.setTitle("Data Template");
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
     }
 
     public void updateEventList() {
@@ -110,9 +121,7 @@ public class ServiceController implements Initializable {
                 App.editing.setData(getDataFromString(dataField.getText()));
             }
         } else {
-            DataTemplates dtmps = new DataTemplates();
-            List<DataTemplate> dts = dtmps.getDataTemplates();
-            for(DataTemplate dt : dts) {
+            for(DataTemplate dt : App.templates) {
                 if(dataBox.getValue().equalsIgnoreCase(dt.getLabel())) {
                     Data d = new Data(Integer.parseInt(startSpeed.getText()), dt.getData());
                     App.editing.setData(d);

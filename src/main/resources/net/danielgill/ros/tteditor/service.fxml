@@ -170,6 +170,7 @@
                      <children>
                         <Button mnemonicParsing="false" onAction="#saveClick" text="Save" />
                         <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelClick" text="Cancel" />
+                        <Button mnemonicParsing="false" onAction="#openDataTemplate" text="Save Data Template" />
                      </children>
                      <VBox.margin>
                         <Insets />

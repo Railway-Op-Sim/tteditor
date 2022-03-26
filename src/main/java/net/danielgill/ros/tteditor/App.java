@@ -6,6 +6,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import net.danielgill.ros.timetable.Timetable;
+import net.danielgill.ros.timetable.data.Data;
+import net.danielgill.ros.timetable.data.DataTemplate;
+import net.danielgill.ros.timetable.data.DataTemplates;
 import net.danielgill.ros.timetable.service.Service;
 import net.danielgill.ros.timetable.time.Time;
 
@@ -23,10 +26,16 @@ public class App extends Application {
     public static PrimaryController pc;
     public static ServiceController sc;
     public static List<String> stations = null;
+    public static List<DataTemplate> templates;
+    public static Data currentData = null;
 
     @Override
     public void start(Stage stage) throws IOException {
         ttb = new Timetable(new Time("00:00"));
+
+        DataTemplates dts = new DataTemplates();
+        templates = dts.getDataTemplates();
+
         Scene scene = new Scene(loadFXML("primary"), 600, 400);
         stage.setTitle("ROS Timetable Editor");
         stage.setResizable(false);
