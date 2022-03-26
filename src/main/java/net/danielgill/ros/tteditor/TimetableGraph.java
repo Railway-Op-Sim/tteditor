@@ -11,12 +11,16 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import net.danielgill.ros.timetable.Timetable;
 import net.danielgill.ros.timetable.event.Event;
+import net.danielgill.ros.timetable.event.ReferenceEvent;
 import net.danielgill.ros.timetable.event.StopEvent;
+import net.danielgill.ros.timetable.event.TimedEvent;
+import net.danielgill.ros.timetable.service.Repeat;
 import net.danielgill.ros.timetable.service.Service;
+import net.danielgill.ros.timetable.service.ServiceInvalidException;
 import net.danielgill.ros.timetable.time.Time;
 
 public class TimetableGraph {
-    public static LineChart<Number, String> getChart(Timetable ttb) {
+    public static LineChart<Number, String> getChart(Timetable ttb, boolean repeats) throws ServiceInvalidException {
         NumberAxis timeAxis = new NumberAxis();
         CategoryAxis stationAxis = new CategoryAxis();
         timeAxis.setLabel("Minutes after Start Time");
@@ -31,6 +35,27 @@ public class TimetableGraph {
             XYChart.Series<Number, String> series = new XYChart.Series<>();
             series = getSeriesFromService(series, s, ttb);
             lc.getData().add(series);
+            if(repeats) {
+                Repeat r = s.getRepeat();
+                if(r != null) {
+                    for(int i = 0; i < r.getNumberOfRepeats(); i++) {
+                        for(Event e : s.getEvents()) {
+                            if(e instanceof TimedEvent) {
+                                TimedEvent te = (TimedEvent) e;
+                                te.incrementTime(r.getInterval());
+                            }
+                            if(e instanceof ReferenceEvent) {
+                                ReferenceEvent re = (ReferenceEvent) e;
+                                re.incrementRef(r.getIncrement());
+                            }
+                        }
+                        System.out.println(s.toFormattedString());
+                        series = new XYChart.Series<>();
+                        series = getSeriesFromService(series, s, ttb);
+                        lc.getData().add(series);
+                    }
+                }
+            }
         }
 
         ObservableList<String> c = FXCollections.observableArrayList(stationAxis.getCategories());

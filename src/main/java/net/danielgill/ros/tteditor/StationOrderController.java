@@ -8,14 +8,17 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import net.danielgill.ros.timetable.event.Event;
 import net.danielgill.ros.timetable.event.StopEvent;
 import net.danielgill.ros.timetable.service.Service;
+import net.danielgill.ros.timetable.service.ServiceInvalidException;
 
 public class StationOrderController implements Initializable {
     @FXML private ListView<String> lv;
+    @FXML private CheckBox repeats;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -57,10 +60,10 @@ public class StationOrderController implements Initializable {
     }
 
     @FXML
-    private void doneClick() {
+    private void doneClick() throws ServiceInvalidException {
         Stage stage = (Stage) lv.getScene().getWindow();
         stage.close();
-        Scene scene = new Scene(TimetableGraph.getChart(App.ttb), 625, 400);
+        Scene scene = new Scene(TimetableGraph.getChart(App.ttb, repeats.isSelected()), 625, 400);
         stage = new Stage();
         stage.setTitle("Graphical Timetable");
         stage.setResizable(true);
