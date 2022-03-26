@@ -144,7 +144,7 @@ public class PrimaryController implements Initializable {
     }
 
     @FXML
-    private void saveTTB() {
+    private void saveTTB() throws URISyntaxException {
         Timetable output = new Timetable(new Time(startTimeTextField.getText()));
         for(Service s : App.ttb.getServices()) {
             output.addService(s);
@@ -153,6 +153,9 @@ public class PrimaryController implements Initializable {
 
         FileChooser fc = new FileChooser();
         fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Timetable Files (.ttb)", "*.ttb"));
+        URL url = getClass().getProtectionDomain().getCodeSource().getLocation();
+        File jarFile = new File(url.toURI());
+        fc.setInitialDirectory(new File(jarFile.getParentFile().getAbsolutePath()));
         Stage stage = (Stage) serviceView.getScene().getWindow();
         File file = fc.showSaveDialog(stage);
         if(file != null) {
