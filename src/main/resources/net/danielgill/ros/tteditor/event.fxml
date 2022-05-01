@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="400.0" maxWidth="625.0" minHeight="400.0" minWidth="625.0" prefHeight="400.0" prefWidth="625.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.danielgill.ros.tteditor.EventController">
+<VBox maxHeight="400.0" maxWidth="625.0" minHeight="400.0" minWidth="625.0" prefHeight="400.0" prefWidth="625.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.danielgill.ros.tteditor.EventController">
    <children>
       <Label text="Add Event">
          <font>
@@ -55,7 +55,7 @@
                      </font>
                   </Label>
                   <Label text="Named Location" />
-                  <TextField fx:id="namedLocation" disable="true" />
+                  <ChoiceBox fx:id="namedLocation" prefHeight="25.0" prefWidth="183.0" />
                   <Label text="Start Location (e.g 2-2 2-3)" />
                   <TextField fx:id="startLocation" disable="true" />
                   <Label text="Exit Location (e.g 2-2)" />

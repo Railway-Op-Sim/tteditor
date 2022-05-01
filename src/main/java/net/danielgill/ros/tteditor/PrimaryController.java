@@ -6,9 +6,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -116,6 +118,7 @@ public class PrimaryController implements Initializable {
                 Alert a = new Alert(AlertType.INFORMATION);
                 a.setTitle("Validation Successful");
                 a.setHeaderText("Timetable validation was successful.");
+                a.setContentText("The timetable looks to be valid, but for full confirmation please run the timetable through the timetable validator directly in ROS with the route loaded.");
                 a.show();
             }
         }
@@ -135,11 +138,43 @@ public class PrimaryController implements Initializable {
         } catch (FileNotFoundException e) {
             Alert a = new Alert(AlertType.ERROR);
             a.setTitle("Cannot find File");
-            a.setContentText("The timetable file cannot be finded, please try again.");
+            a.setContentText("The timetable file cannot be found or read, please try again.");
             a.show();
         } finally {
             updateServices();
             startTimeTextField.setText(App.ttb.getStartTime().toString());
+        }
+    }
+
+    @FXML
+    private void loadRailway() throws URISyntaxException, FileNotFoundException {
+        FileChooser fc = new FileChooser();
+        fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Railway files (.rly)", "*.rly"));
+        URL url = getClass().getProtectionDomain().getCodeSource().getLocation();
+        File jarFile = new File(url.toURI());
+        fc.setInitialDirectory(new File(jarFile.getParentFile().getAbsolutePath()));
+        Stage stage = (Stage) serviceView.getScene().getWindow();
+        File rlyFile = fc.showOpenDialog(stage);
+        App.locations = new HashSet<>();
+        try {
+            try (Scanner sc = new Scanner(rlyFile)) {
+                while(sc.hasNextLine()) {
+                    String line = sc.nextLine();
+                    if(Character.isDigit(line.charAt(0)) || line.startsWith("*") || line.startsWith("-") || line == " " || line == "") {
+                        continue;
+                    }
+                    if(line == "MS Sans Serif " || (line.startsWith(" v") && Character.isDigit(line.charAt(2)))) {
+                        continue;
+                    }
+                    App.locations.add(line);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            Alert a = new Alert(AlertType.ERROR);
+            a.setTitle("Cannot find File");
+            a.setContentText("The railway file cannot be found or read, please try again.");
+            a.show();
+        } finally {
         }
     }
 

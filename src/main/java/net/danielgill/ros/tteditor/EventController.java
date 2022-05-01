@@ -40,7 +40,7 @@ public class EventController implements Initializable {
     @FXML private TextField eventTime;
     @FXML private TextField arrivalTime;
     @FXML private TextField departureTime;
-    @FXML private TextField namedLocation;
+    @FXML private ChoiceBox<String> namedLocation;
     @FXML private TextField startLocation;
     @FXML private TextField exitLocation;
     @FXML private TextField otherReference;
@@ -54,7 +54,12 @@ public class EventController implements Initializable {
         for(Event e : EventRegistry.EVENTS_LIST) {
             eventBox.getItems().add("[" + e.getType() + "] " + e.getDescription());
         }
-        
+        if(App.locations == null) {
+            return;
+        }
+        for(String loc : App.locations) {
+            namedLocation.getItems().add(loc);
+        }
     }
 
     @FXML
@@ -88,14 +93,14 @@ public class EventController implements Initializable {
             return new SfsEvent(new Time(eventTime.getText()), new Reference(otherReference.getText()));
         } else if(event instanceof StopEvent) {
             if(arrivalTime.getText().isEmpty() || arrivalTime.getText() == null) {
-                return new StopEvent(new NamedLocation(namedLocation.getText()), new Time(departureTime.getText()));
+                return new StopEvent(new NamedLocation(namedLocation.getValue()), new Time(departureTime.getText()));
             } else if(departureTime.getText().isEmpty() || departureTime.getText() == null) {
-                return new StopEvent(new Time(arrivalTime.getText()), new NamedLocation(namedLocation.getText()));
+                return new StopEvent(new Time(arrivalTime.getText()), new NamedLocation(namedLocation.getValue()));
             } else {
-                return new StopEvent(new Time(arrivalTime.getText()), new Time(departureTime.getText()), new NamedLocation(namedLocation.getText()));
+                return new StopEvent(new Time(arrivalTime.getText()), new Time(departureTime.getText()), new NamedLocation(namedLocation.getValue()));
             }
         } else if(event instanceof PassEvent) {
-            return new PassEvent(new Time(eventTime.getText()), new NamedLocation(namedLocation.getText()));
+            return new PassEvent(new Time(eventTime.getText()), new NamedLocation(namedLocation.getValue()));
         } else if(event instanceof CdtEvent) {
             return new CdtEvent(new Time(eventTime.getText()));
         } else if(event instanceof JboEvent) {

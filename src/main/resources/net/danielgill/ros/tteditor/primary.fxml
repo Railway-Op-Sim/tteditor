@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="400.0" maxWidth="625.0" minHeight="400.0" minWidth="625.0" prefHeight="400.0" prefWidth="625.0" spacing="20.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.danielgill.ros.tteditor.PrimaryController">
+<VBox maxHeight="400.0" maxWidth="625.0" minHeight="400.0" minWidth="625.0" prefHeight="400.0" prefWidth="625.0" spacing="20.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.danielgill.ros.tteditor.PrimaryController">
    <padding>
       <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
    </padding>
@@ -50,6 +50,14 @@
                         <Insets left="10.0" right="10.0" />
                      </padding>
                   </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#loadRailway" text="Load Railway" />
+                     </children>
+                     <padding>
+                        <Insets left="10.0" right="10.0" />
+                     </padding>
+                  </HBox>
                   <Label text="Start Time:" />
                   <TextField fx:id="startTimeTextField" />
                   <Line endX="213.5" startX="-100.0" />
@@ -83,6 +91,11 @@
             <Button mnemonicParsing="false" onAction="#createService" text="Create New Service" />
             <Button mnemonicParsing="false" onAction="#openService" text="Edit Selected" />
             <Button mnemonicParsing="false" onAction="#deleteService" text="Delete Selected" />
+            <Label prefHeight="17.0" prefWidth="261.0" text="ROS Timetable Editor by Daniel Gill | v0.2.0-beta" textAlignment="RIGHT">
+               <HBox.margin>
+                  <Insets top="5.0" />
+               </HBox.margin>
+            </Label>
          </children>
       </HBox>
    </children>

@@ -14,6 +14,7 @@ import net.danielgill.ros.timetable.time.Time;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 /**
  * JavaFX App
@@ -28,6 +29,7 @@ public class App extends Application {
     public static List<String> stations = null;
     public static List<DataTemplate> templates;
     public static Data currentData = null;
+    public static Set<String> locations = null;
 
     @Override
     public void start(Stage stage) throws IOException {
