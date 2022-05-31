@@ -6,11 +6,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import java.util.TreeSet;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -155,18 +155,16 @@ public class PrimaryController implements Initializable {
         fc.setInitialDirectory(new File(jarFile.getParentFile().getAbsolutePath()));
         Stage stage = (Stage) serviceView.getScene().getWindow();
         File rlyFile = fc.showOpenDialog(stage);
-        App.locations = new HashSet<>();
+        App.locations = new TreeSet<>();
         try {
             try (Scanner sc = new Scanner(rlyFile)) {
+                String prev = "";
                 while(sc.hasNextLine()) {
                     String line = sc.nextLine();
-                    if(Character.isDigit(line.charAt(0)) || line.startsWith("*") || line.startsWith("-") || line == " " || line == "") {
-                        continue;
+                    if(line.contains("***") && !prev.equals("") && !prev.equals("0") && !prev.trim().isEmpty()) {
+                        App.locations.add(prev);
                     }
-                    if(line == "MS Sans Serif " || (line.startsWith(" v") && Character.isDigit(line.charAt(2)))) {
-                        continue;
-                    }
-                    App.locations.add(line);
+                    prev = line;
                 }
             }
         } catch (FileNotFoundException e) {
